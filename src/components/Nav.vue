@@ -1,5 +1,11 @@
 <template>
-<div>$END$</div>
+  <div>
+    <router-link to="/Money">Money</router-link>
+    |
+    <router-link to="/Label">Label</router-link>
+    |
+    <router-link to="/Statistic">Statistic</router-link>
+  </div>
 </template>
 
 <script lang="ts">
