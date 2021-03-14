@@ -18,13 +18,13 @@ export default {
   display: flex;
   flex-direction: column;
   border: 1px solid red;
-  flex-grow: 1;
+  height: 100vh;
 }
 
 .content {
   overflow: auto;
   border: 1px solid black;
-  height: 100vh;
+  flex-grow: 1;
 }
 
 </style>
