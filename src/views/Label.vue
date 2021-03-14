@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <div class="nav-wrapper">
-      Label
-      <Nav/>
+    <div>
+      <Layout>
+        <p>Label</p>
+      </Layout>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
@@ -12,7 +11,3 @@ export default {
   name: "Label",
 };
 </script>
-
-<style lang="scss" scoped>
-
-</style>
