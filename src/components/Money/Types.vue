@@ -1,8 +1,8 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="type === '-' && 'selected'" @click="selectType('-')">支出</li>
-      <li :class="type === '+' && 'selected'" @click="selectType('+')">收入</li>
+      <li :class="value === '-' && 'selected'" @click="selectType('-')">支出</li>
+      <li :class="value === '+' && 'selected'" @click="selectType('+')">收入</li>
     </ul>
   </div>
 </template>
@@ -14,34 +14,15 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component
 
 export default class Types extends Vue {
-  type = '-';
-  @Prop(Number) xxx: number | undefined
+ @Prop() readonly value!: string
   selectType(type: string) {
     if (type !== '-' && type !== '+') {
       throw new Error('This Type is unknown');
     }
-    this.type = type;
+    this.$emit('update:value',type)
   }
 }
 </script>
-<!--<script>-->
-<!--export default {-->
-<!--  name: "Type",-->
-<!--  data() {-->
-<!--    return {-->
-<!--      type: '-'-->
-<!--    }-->
-<!--  },-->
-<!--  methods: {-->
-<!--    selectType(type) {-->
-<!--      if (type !== '-' && type !== '+') {-->
-<!--        throw new Error('This Type is unknown')-->
-<!--      }-->
-<!--      this.type = type;-->
-<!--    }-->
-<!--  }-->
-<!--}-->
-<!--</script>-->
 
 <style lang="scss" scoped>
 .types {
