@@ -54,7 +54,9 @@ export default class NumberPad extends Vue {
   clear(){
     this.output=''
   }
-
+  ok(){
+    console.log('未完成');
+  }
 }
 </script>
 
