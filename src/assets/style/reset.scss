@@ -7,3 +7,12 @@
 a{
   text-decoration: none;
 }
+ul,li{
+  list-style: none;
+}
+button,input{
+  font:inherit;
+}
+:focus{
+  outline: none;
+}
