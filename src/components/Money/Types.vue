@@ -7,24 +7,40 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Type",
-  data() {
-    return {
-      type: '-'
+<script lang="ts">
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component
+
+export default class Types extends Vue {
+  type = '-';
+  selectType(type: string) {
+    if (type !== '-' && type !== '+') {
+      throw new Error('This Type is unknown');
     }
-  },
-  methods: {
-    selectType(type) {
-      if (type !== '-' && type !== '+') {
-        throw new Error('This Type is unknown')
-      }
-      this.type = type;
-    }
+    this.type = type;
   }
 }
 </script>
+<!--<script>-->
+<!--export default {-->
+<!--  name: "Type",-->
+<!--  data() {-->
+<!--    return {-->
+<!--      type: '-'-->
+<!--    }-->
+<!--  },-->
+<!--  methods: {-->
+<!--    selectType(type) {-->
+<!--      if (type !== '-' && type !== '+') {-->
+<!--        throw new Error('This Type is unknown')-->
+<!--      }-->
+<!--      this.type = type;-->
+<!--    }-->
+<!--  }-->
+<!--}-->
+<!--</script>-->
 
 <style lang="scss" scoped>
 .types {
