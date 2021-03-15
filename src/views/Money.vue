@@ -5,6 +5,7 @@
       <Type/>
       <Notes/>
       <Tags :data-source="tags"/>
+<!--      <Tags :data-source="tags" v-on:update:dataSource="tags=$event" />-->
     </Layout>
   </div>
 </template>

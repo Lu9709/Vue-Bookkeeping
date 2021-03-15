@@ -1,12 +1,12 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button>新增标签</button>
+      <button @click="create">新增标签</button>
     </div>
     <ul class="current">
       <li v-for="tag in dataSource" :key="tag"
           :class="{selected:selectTags.indexOf(tag)>=0}"
-          @click="Toggle(tag)">{{tag}}
+          @click="Toggle(tag)">{{ tag }}
       </li>
     </ul>
   </div>
@@ -19,17 +19,26 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component
 
 export default class Tags extends Vue {
-  @Prop() dataSource: string[] | undefined;
+  @Prop() readonly dataSource: string[] | undefined;
   selectTags: string[] = [];
 
-  Toggle(tag: string){
-    const index = this.selectTags.indexOf(tag)
-    if(index>=0){
-      this.selectTags.splice(index,1)
-    }else {
-      this.selectTags.push(tag)
+  Toggle(tag: string) {
+    const index = this.selectTags.indexOf(tag);
+    if (index >= 0) {
+      this.selectTags.splice(index, 1);
+    } else {
+      this.selectTags.push(tag);
     }
   }
+
+  create() {
+    const name = window.prompt('请输入标签名');
+    if (name === '') {
+      window.alert('标签名不能为空');
+    } else if (this.dataSource)
+      this.$emit('update:dataSource', [...this.dataSource, name]);
+  }
+
 }
 </script>
 
@@ -46,8 +55,8 @@ export default class Tags extends Vue {
     flex-wrap: wrap;
 
     > li {
-      $bg:#d9d9d9;
-      background-color:$bg;
+      $bg: #d9d9d9;
+      background-color: $bg;
       $h: 24px;
       line-height: $h;
       height: $h;
@@ -55,10 +64,11 @@ export default class Tags extends Vue {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
-    &.selected{
-      background: darken($bg,50%);
-      color:white;
-    }
+
+      &.selected {
+        background: darken($bg, 50%);
+        color: white;
+      }
     }
   }
 
