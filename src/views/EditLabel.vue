@@ -20,7 +20,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import tagsListModel from '@/models/tagsListModel';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
 
@@ -28,29 +27,24 @@ import Button from '@/components/Button.vue';
   components: {Button, FormItem}
 })
 export default class EditLabel extends Vue {
-  tag?: { id: string; name: string } = undefined;
+  tag?: Tag = undefined;
 
   created() {
-    const id = this.$route.params.id;
-    tagsListModel.fetch();
-    const tags = tagsListModel.data;
-    const tag = tags.filter(t => t.id === id)[0];
-    if (tag) {
-      this.tag = tag;
-    } else {
+     this.tag = window.findTag(this.$route.params.id)
+    if (!this.tag) {
       this.$router.replace('/404');
     }
   }
 
   updateTag(name: string) {
     if (this.tag) {
-      tagsListModel.update(this.tag.id, name);
+      window.updateTag(this.tag.id, name);
     }
   }
 
   remove() {
     if (this.tag) {
-      tagsListModel.remove(this.tag.id);
+      window.removeTag(this.tag.id);
       this.$router.back();
     } else {
       window.alert('删除失败');

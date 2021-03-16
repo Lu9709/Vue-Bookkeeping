@@ -31,7 +31,6 @@ tagsListModel.fetch();
 
 export default class Label extends Vue {
   tags = window.tagList;
-
   createTag() {
     const tagName = window.prompt('请输入标签');
     if (tagName) {
