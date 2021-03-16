@@ -8,7 +8,10 @@
         </router-link>
       </div>
       <div class="createTag-wrapper">
-        <button class="createTag" @click="onCreate">创建标签</button>
+        <Button class="createTag"
+                @click="createTag">
+          新建标签
+        </Button>
       </div>
     </Layout>
   </div>
@@ -19,14 +22,17 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import tagsListModel from '@/models/tagsListModel';
+import Button from '@/components/Button.vue';
 
 tagsListModel.fetch();
-@Component
+@Component({
+  components: {Button}
+})
 
 export default class Label extends Vue {
   tags = tagsListModel.data;
 
-  onCreate() {
+  createTag() {
     const tagName = window.prompt('请输入标签');
     if (tagName) {
       const message = tagsListModel.create(tagName);
@@ -55,8 +61,8 @@ export default class Label extends Vue {
     border-bottom: 1px solid #e6e6e6;
 
     svg {
-      width: 24px;
-      height: 24px;
+      width: 18px;
+      height: 18px;
       color: #666;
       margin-right: 16px;
     }
