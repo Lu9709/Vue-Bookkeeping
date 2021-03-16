@@ -1,15 +1,17 @@
 <template>
   <Layout>
     <div class="navBar">
-      <Icon class="leftIcon" name="left"/>
+      <Icon class="leftIcon" name="left" @click="goBack"/>
       <span class="title">编辑标签</span>
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem field-name="标签名" placeholder="请输入标签名"/>
+      <FormItem :value="tag.name"
+                @update:value="updateTag"
+                field-name="标签名" placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
-      <Button>删除标签</Button>
+      <Button @click="remove">删除标签</Button>
     </div>
 
   </Layout>
@@ -26,17 +28,34 @@ import Button from '@/components/Button.vue';
   components: {Button, FormItem}
 })
 export default class EditLabel extends Vue {
+  tag?: { id: string; name: string } = undefined;
+
   created() {
     const id = this.$route.params.id;
     tagsListModel.fetch();
     const tags = tagsListModel.data;
     const tag = tags.filter(t => t.id === id)[0];
     if (tag) {
-      console.log(tag);
+      this.tag = tag;
     } else {
       this.$router.replace('/404');
     }
   }
+
+  updateTag(name: string) {
+    if (this.tag) {
+      tagsListModel.update(this.tag.id, name);
+    }
+  }
+  remove(){
+    if(this.tag){
+      tagsListModel.remove(this.tag.id)
+    }
+  }
+  goBack(){
+    this.$router.back()
+  }
+
 }
 </script>
 
@@ -49,21 +68,26 @@ export default class EditLabel extends Vue {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   > .title {
   }
+
   > .leftIcon {
     width: 24px;
     height: 24px;
   }
+
   > .rightIcon {
     width: 24px;
     height: 24px;
   }
 }
+
 .form-wrapper {
   background: white;
   margin-top: 8px;
 }
+
 .button-wrapper {
   text-align: center;
   padding: 16px;
