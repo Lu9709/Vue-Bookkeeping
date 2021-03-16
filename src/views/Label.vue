@@ -30,7 +30,7 @@ tagsListModel.fetch();
 })
 
 export default class Label extends Vue {
-  tags = tagsListModel.data;
+    tags =window.tagList
 
   createTag() {
     const tagName = window.prompt('请输入标签');
@@ -42,7 +42,6 @@ export default class Label extends Vue {
         window.alert('添加成功');
       }
     }
-
   }
 }
 
