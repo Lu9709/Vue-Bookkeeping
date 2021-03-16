@@ -14,12 +14,6 @@ Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 
 
-
-//tag store
-
-
-
-
 new Vue({
   router,
   store,
