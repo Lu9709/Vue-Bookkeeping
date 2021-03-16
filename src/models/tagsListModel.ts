@@ -1,7 +1,7 @@
 import createId from '@/lib/createId';
 const localStorageKeyName = 'tagList';
 
-const tagListModel: TageListModel = {
+const tagListModel: TagListModel = {
   data: [],
   fetch() {
     this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
@@ -30,7 +30,7 @@ const tagListModel: TageListModel = {
         return 'success';
       }
     } else {
-      return 'no found';
+      return 'not found';
     }
   },
   remove(id: string) {
