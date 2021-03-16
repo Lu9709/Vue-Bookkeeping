@@ -30,17 +30,12 @@ tagsListModel.fetch();
 })
 
 export default class Label extends Vue {
-    tags =window.tagList
+  tags = window.tagList;
 
   createTag() {
     const tagName = window.prompt('请输入标签');
     if (tagName) {
-      const message = tagsListModel.create(tagName);
-      if (message === 'duplicated') {
-        alert('标签名重复了');
-      } else if (message === "success") {
-        window.alert('添加成功');
-      }
+      window.createTag(tagName);
     }
   }
 }
