@@ -42,7 +42,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    store.createRecord(this.record);
+    store.createRecords(this.record);
   }
 
 }
