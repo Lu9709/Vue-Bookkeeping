@@ -34,7 +34,7 @@ export default class Statistic extends Vue {
   recordTypeList = recordTypeList;
 
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.join(',');
+    return tags.length === 0 ? '无' : tags.map(t=>t.name).join('，');
   }
 
   get recordList() {
@@ -43,12 +43,14 @@ export default class Statistic extends Vue {
 
   get groupList() {
     const {recordList} = this;
+
     type Result = { title: string; total?: number; items: RecordItem[] }[]
     const newList = clone(recordList)
         .filter(r => r.type === this.type)
         .sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+    if (newList.length === 0) {return [] as Result;}
     const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
-    if (recordList.length === 0) {return [];}
+
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];

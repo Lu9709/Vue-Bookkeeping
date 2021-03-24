@@ -18,14 +18,12 @@ export default {
 .layout-wrapper {
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
   height: 100vh;
 
 }
 
 .content {
   overflow: auto;
-  border: 1px solid black;
   flex-grow: 1;
 }
 
