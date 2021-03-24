@@ -2,7 +2,7 @@
   <div>
     <Layout>
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-      <ol>
+      <ol v-if="groupList.length>0">
         <li v-for="(group, index) in groupList" :key="index">
           <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
           <ol>
@@ -14,6 +14,9 @@
           </ol>
         </li>
       </ol>
+      <div v-else class="noResult">
+        目前没有相关记录
+      </div>
     </Layout>
   </div>
 </template>
@@ -91,6 +94,10 @@ export default class Statistic extends Vue {
 }
 </script>
 <style scoped lang="scss">
+.noResult{
+  padding: 16px;
+  text-align: center;
+}
 %item {
   padding: 8px 16px;
   line-height: 24px;
