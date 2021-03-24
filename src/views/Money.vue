@@ -4,10 +4,9 @@
       <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
       <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
       <div class="notes">
-        <FormItem field-name="备注" placeholder="在这里输入备注"
-                  @update:value="onUpdateNotes"/>
+        <FormItem field-name="备注" placeholder="在这里输入备注" :value.sync="record.notes"/>
       </div>
-      <Tags @update:value="record.tags = $event" />
+      <Tags @update:value="record.tags = $event"/>
     </Layout>
   </div>
 </template>
@@ -22,19 +21,21 @@ import recordTypeList from '@/constants/recordTypeList';
 import {Component} from 'vue-property-decorator';
 
 @Component({
-  components: {Tags, FormItem,Tabs, NumberPad},
+  components: {Tags, FormItem, Tabs, NumberPad},
 })
 
 export default class Money extends Vue {
-  recordTypeList = recordTypeList
+  recordTypeList = recordTypeList;
   record: RecordItem = {
     tags: [], notes: "", type: "-", amount: 0
   };
+
   get recordList() {
     return this.$store.state.recordList;
   }
-  created(){
-    this.$store.commit('fetchRecords')
+
+  created() {
+    this.$store.commit('fetchRecords');
   }
 
   onUpdateNotes(value: string) {
@@ -42,15 +43,19 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
+    if (!this.record.tags || this.record.tags.length === 0) {
+      return window.alert('请至少选择一个标签');
+    }
     this.$store.commit('createRecord', this.record);
-    if(this.$store.state.createRecordError ===null) {
-      window.alert('已保存')
+    if (this.$store.state.createRecordError === null) {
+      window.alert('已保存');
+      this.record.notes = '';
     }
   }
 }
 </script>
 <style lang="scss" scoped>
- ::v-deep .layout-content {
+::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
 }
