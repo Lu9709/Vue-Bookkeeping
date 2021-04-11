@@ -6,6 +6,9 @@ import router from '@/router';
 
 Vue.use(Vuex);
 
+const array = ['餐饮','购物','服饰','医疗'
+  ,'零食','娱乐','社交','电话',
+  '日用','水果','学习','投资','其他']
 
 const store = new Vuex.Store({
   state: {
@@ -66,10 +69,10 @@ const store = new Vuex.Store({
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if(!state.tagList || state.tagList.length === 0){
-        store.commit('createTag','衣')
-        store.commit('createTag','食')
-        store.commit('createTag','住')
-        store.commit('createTag','行')
+          for(let i=0;i<array.length;i++){
+            const name =array[i]
+            store.commit('createTag',name)
+        }
       }
     },
     createTag(state, name: string) {

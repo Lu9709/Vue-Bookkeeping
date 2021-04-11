@@ -6,7 +6,10 @@
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected:selectTags.indexOf(tag)>=0}"
-          @click="Toggle(tag)">{{ tag.name }}
+          @click="Toggle(tag)">
+<!--        <Icon name="Label"/>-->
+<!--        <Icon :name="getName()"/>-->
+        <span class="tagsName">{{ tag.name }}</span>
       </li>
     </ul>
   </div>
@@ -16,19 +19,36 @@
 import {Component} from 'vue-property-decorator';
 import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
+import {createLogger} from 'vuex';
 
 @Component
 export default class Tags extends mixins(TagHelper) {
+  // IconName: {[key:strig]:string} = {
+  //   "餐饮":'food',
+  //   "购物":'shop',
+  //   "服饰":'cloth',
+  //   "医疗":'hospital',
+  //   "零食":'lingshi',
+  //   "娱乐":'food',
+  //   "社交":'social',
+  //   "电话":'phone',
+  //   "日用":'dailyuse',
+  //   "水果":'fruit',
+  //   "学习":'study',
+  //   "投资":'chuxuguan',
+  //   "其他":'else'
+  // }
+  // getName() {
+  //   const x = this.tagList.forEach((x)=>{x.name})
+  //
+  // }
   selectTags: string[] = [];
-
   get tagList() {
     return this.$store.state.tagList;
   }
-
   created() {
     this.$store.commit('fetchTags');
   }
-
   Toggle(tag: string) {
     const index = this.selectTags.indexOf(tag);
     if (index >= 0) {
@@ -38,7 +58,6 @@ export default class Tags extends mixins(TagHelper) {
     }
     this.$emit('update:value', this.selectTags);
   }
-
 }
 </script>
 
